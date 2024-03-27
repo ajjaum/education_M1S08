@@ -1,37 +1,32 @@
 package br.com.fullstack.m1s08.education.model;
 
+import lombok.AccessLevel;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
+@Data
 public class Aluno {
 
     private static Integer proximoId = 1;
-    @Getter private static List<Aluno> alunosCadastrados = new ArrayList<>();
+    @Getter private static final List<Aluno> alunosCadastrados = new ArrayList<>();
 
-    private Integer id;
-    @Setter private String nome;
-    @Setter private String dataNascimento;
+    @Setter(AccessLevel.NONE) private Integer id;
+    private String nome;
+    private String dataNascimento;
 
-    public static Aluno salvar(Aluno aluno) throws Exception{
-        if (validar(aluno)) {
-            aluno.id = proximoId++;
-            alunosCadastrados.add(aluno);
-        }
+    public static Aluno inserir(Aluno aluno) throws Exception {
+        aluno.id = proximoId++;
+        alunosCadastrados.add(aluno);
         return aluno;
     }
 
-    public static Aluno salvar(Integer id, Aluno aluno) throws Exception{
-        if (validar(aluno)) {
-            Aluno cadastrado = buscarPorId(id);
-            cadastrado.setNome(aluno.getNome());
-            cadastrado.setDataNascimento(aluno.getDataNascimento());
-            return cadastrado;
-            }
-        return null;
+    public static boolean excluir(Aluno aluno) throws Exception {
+        alunosCadastrados.remove(aluno);
+        return true;
     }
 
     public static Aluno buscarPorId(Integer id) throws Exception {
@@ -41,15 +36,5 @@ public class Aluno {
             }
         }
         throw new Exception("Aluno não encontrado");
-    }
-
-    private static boolean validar(Aluno aluno) throws Exception{
-        if (aluno.getNome() == null || aluno.getNome().isEmpty()) {
-            throw new Exception("Nome é obrigatório");
-        }
-        if (aluno.getDataNascimento() == null || aluno.getDataNascimento().isEmpty()) {
-            throw new Exception("Data de aniversário é obrigatória");
-        }
-        return true;
     }
 }
