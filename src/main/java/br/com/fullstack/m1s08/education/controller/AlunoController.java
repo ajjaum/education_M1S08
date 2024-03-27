@@ -11,11 +11,12 @@ import java.util.List;
 @RequestMapping("alunos")
 public class AlunoController {
 
-    private final AlunoService alunoService;
+    private final CursoAlunoService alunoService;
 
-    public AlunoController(AlunoService alunoService) {
+    public AlunoController(CursoAlunoService alunoService) {
         this.alunoService = alunoService;
     }
+
 
     /**Buscar todos**/
     @GetMapping

@@ -52,4 +52,10 @@ public class CursoController {
     public Curso postAluno(@PathVariable Integer id, @RequestBody Aluno aluno) throws Exception {
         return cursoService.adicionarAluno(id, aluno.getId());
     }
+
+    /** Adicionar aluno a um curso com PATH VARIABLE / PATH PARAM */
+    @PostMapping("{id}/add-aluno/{alunoId}")
+    public Curso postAlunoPorId(@PathVariable Integer id, @PathVariable Integer alunoId) throws Exception {
+        return cursoService.adicionarAluno(id, alunoId);
+    }
 }
